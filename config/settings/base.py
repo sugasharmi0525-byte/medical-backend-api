@@ -1,5 +1,5 @@
 """
-Base Django settings for the Mediance Neuro Life project.
+Base Django settings for the Medicine Neuro Life project.
 All sensitive values are read from environment variables (see backend/.env.example).
 """
 
@@ -98,8 +98,8 @@ else:
     DATABASES = {
         "default": {
             "ENGINE": DATABASE_ENGINES.get(env("DB_TYPE", default="mysql"), "common.db.mysql"),
-            "NAME": env("DB_NAME", default="mediance"),
-            "USER": env("DB_USER", default="mediance"),
+            "NAME": env("DB_NAME", default="medicine"),
+            "USER": env("DB_USER", default="medicine"),
             "PASSWORD": env("DB_PASSWORD", default=env("DB_PASS", default="")),
             "HOST": env("DB_HOST", default="localhost"),
             "PORT": env("DB_PORT", default="3306"),
@@ -194,7 +194,7 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Mediance Neuro Life API",
+    "TITLE": "Medicine Neuro Life API",
     "DESCRIPTION": "Lead generation and sales CRM API.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
@@ -231,7 +231,7 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)
 EMAIL_TIMEOUT = env.int("EMAIL_TIMEOUT", default=20)
 DEFAULT_FROM_EMAIL = env(
-    "DEFAULT_FROM_EMAIL", default="Mediance Neuro Life <no-reply@mediance.local>"
+    "DEFAULT_FROM_EMAIL", default="Medicine Neuro Life <no-reply@medicine.local>"
 )
 SERVER_EMAIL = env("SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 ADMINS = [("Admin", email) for email in env.list("ADMIN_EMAILS", default=[])]
@@ -243,14 +243,14 @@ FRONTEND_URL = env("FRONTEND_URL", default="http://localhost:5173").rstrip("/")
 CORS_ALLOWED_ORIGINS = [*CORS_ALLOWED_ORIGINS, FRONTEND_URL]
 CORS_ALLOWED_ORIGINS = [origin.rstrip("/") for origin in dict.fromkeys(CORS_ALLOWED_ORIGINS)]
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=CORS_ALLOWED_ORIGINS)
-SITE_NAME = env("SITE_NAME", default="Mediance Neuro Life")
+SITE_NAME = env("SITE_NAME", default="Medicine Neuro Life")
 # "sync" sends inside the request, "thread" sends right after it in the background
 # (no Redis needed), "celery" queues a Celery task (production). Vercel stops the function
 # when the response is sent, so background threads would be cut off there.
 NOTIFICATIONS_DELIVERY = env("NOTIFICATIONS_DELIVERY", default="sync" if ON_VERCEL else "thread")
 # Recipients on these domains are never contacted (demo/test data). ".demo" is not a real TLD.
 NOTIFICATIONS_SKIP_DOMAINS = env.list(
-    "NOTIFICATIONS_SKIP_DOMAINS", default=["mediance.demo", "example.demo", "test.demo"]
+    "NOTIFICATIONS_SKIP_DOMAINS", default=["medicine.demo", "example.demo", "test.demo"]
 )
 # WhatsApp: "console" logs messages only; "meta" uses the WhatsApp Business Cloud API.
 WHATSAPP_PROVIDER = env("WHATSAPP_PROVIDER", default="console")

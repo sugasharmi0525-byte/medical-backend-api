@@ -35,8 +35,8 @@ def sales_executive(db):
 @pytest.fixture
 def product(db):
     return Product.objects.create(
-        name="Mediance Neuro Life",
-        slug="mediance-neuro-life",
+        name="Medicine Neuro Life",
+        slug="medicine-neuro-life",
         status=ProductStatus.ACTIVE,
         selling_price=899,
     )

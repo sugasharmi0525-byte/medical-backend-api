@@ -213,11 +213,11 @@ def test_seed_demo_creates_every_role_and_is_idempotent(settings, tmp_path):
     call_command("seed_demo")
     for code in RoleCode.values:
         assert User.objects.filter(roles__code=code).exists(), code
-    superadmin = User.objects.get(email="superadmin@mediance.demo")
+    superadmin = User.objects.get(email="superadmin@medicine.demo")
     assert superadmin.check_password("SuperAdmin@123")
     assert superadmin.is_superuser
-    assert User.objects.get(email="doctor1@mediance.demo").doctor_profile.photo
-    assert User.objects.get(email="patient1@mediance.demo").patient_profile.assigned_doctor
+    assert User.objects.get(email="doctor1@medicine.demo").doctor_profile.photo
+    assert User.objects.get(email="patient1@medicine.demo").patient_profile.assigned_doctor
     assert UserRole.objects.count() == 15
     # Demo images go to the configured storage (the database by default).
     from apps.media_files.models import StoredFile

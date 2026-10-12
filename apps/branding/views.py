@@ -22,7 +22,7 @@ class ThemeAdminView(APIView):
     """
     GET    /api/v1/theme/  current theme plus the preset catalogue
     PATCH  /api/v1/theme/  change preset, colours, fonts or corner style
-    DELETE /api/v1/theme/  reset to the default Mediance Green theme
+    DELETE /api/v1/theme/  reset to the default Medicine Green theme
     Super Admin only.
     """
 

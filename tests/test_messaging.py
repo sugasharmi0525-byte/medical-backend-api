@@ -366,7 +366,7 @@ def test_super_admin_manages_templates_and_sends_test(api_client, super_admin):
     assert test.data["data"]["status"] == "SENT"
     assert mail.outbox[-1].to == ["owner@example.com"]
     skipped = api_client.post(
-        "/api/v1/messaging/test/", {"channel": "EMAIL", "to": "x@mediance.demo"}, format="json"
+        "/api/v1/messaging/test/", {"channel": "EMAIL", "to": "x@medicine.demo"}, format="json"
     )
     assert skipped.data["data"]["status"] == "SKIPPED"
     wa = api_client.post(

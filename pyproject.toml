@@ -1,7 +1,7 @@
 # Runtime dependencies for Vercel (which installs from this file). Local development still
 # uses requirements.txt; PyMySQL replaces mysqlclient here because it needs no C libraries.
 [project]
-name = "mediance-backend"
+name = "medicine-backend"
 version = "1.0.0"
 requires-python = ">=3.12,<3.13"
 dependencies = [

@@ -28,14 +28,14 @@ class Migration(migrations.Migration):
                     "preset",
                     models.CharField(
                         choices=[
-                            ("MEDIANCE_GREEN", "Mediance Green"),
+                            ("MEDICINE_GREEN", "Medicine Green"),
                             ("ROSE_PLUM", "Rose & Plum"),
                             ("LAVENDER_CALM", "Lavender Calm"),
                             ("PEACH_TEAL", "Peach & Teal"),
                             ("MAUVE_MINIMAL", "Mauve Minimal"),
                             ("CUSTOM", "Custom"),
                         ],
-                        default="MEDIANCE_GREEN",
+                        default="MEDICINE_GREEN",
                         max_length=32,
                     ),
                 ),

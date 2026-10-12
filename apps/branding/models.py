@@ -6,7 +6,7 @@ HEX_COLOR = RegexValidator(r"^#[0-9a-fA-F]{6}$", "Use a 6-digit hex colour such 
 
 
 class ThemePreset(models.TextChoices):
-    MEDIANCE_GREEN = "MEDIANCE_GREEN", "Mediance Green"
+    MEDICINE_GREEN = "MEDICINE_GREEN", "Medicine Green"
     ROSE_PLUM = "ROSE_PLUM", "Rose & Plum"
     LAVENDER_CALM = "LAVENDER_CALM", "Lavender Calm"
     PEACH_TEAL = "PEACH_TEAL", "Peach & Teal"
@@ -36,7 +36,7 @@ class CornerStyle(models.TextChoices):
 
 # Concrete values for each preset (CUSTOM keeps whatever was saved).
 PRESETS = {
-    ThemePreset.MEDIANCE_GREEN: {
+    ThemePreset.MEDICINE_GREEN: {
         "primary_color": "#0F9D78",
         "accent_color": "#7C5CF6",
         "heading_font": HeadingFont.PLUS_JAKARTA_SANS,
@@ -73,7 +73,7 @@ PRESETS = {
     },
 }
 
-DEFAULT_PRESET = ThemePreset.MEDIANCE_GREEN
+DEFAULT_PRESET = ThemePreset.MEDICINE_GREEN
 
 
 class SiteTheme(models.Model):

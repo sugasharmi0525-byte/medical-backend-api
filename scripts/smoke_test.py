@@ -18,12 +18,12 @@ API = os.environ.get("API_URL", "http://127.0.0.1:8000/api/v1")
 FRONTEND = os.environ.get("FRONTEND_URL", "http://127.0.0.1:5173")
 
 ACCOUNTS = {
-    "SUPER_ADMIN": ("superadmin@mediance.demo", "SuperAdmin@123"),
-    "ADMIN": ("admin@mediance.demo", "Admin@123"),
-    "SALES_MANAGER": ("manager@mediance.demo", "Manager@123"),
-    "SALES_EXECUTIVE": ("sales1@mediance.demo", "Sales@123"),
-    "DOCTOR": ("doctor1@mediance.demo", "Doctor@123"),
-    "PATIENT": ("patient1@mediance.demo", "Patient@123"),
+    "SUPER_ADMIN": ("superadmin@medicine.demo", "SuperAdmin@123"),
+    "ADMIN": ("admin@medicine.demo", "Admin@123"),
+    "SALES_MANAGER": ("manager@medicine.demo", "Manager@123"),
+    "SALES_EXECUTIVE": ("sales1@medicine.demo", "Sales@123"),
+    "DOCTOR": ("doctor1@medicine.demo", "Doctor@123"),
+    "PATIENT": ("patient1@medicine.demo", "Patient@123"),
 }
 
 # endpoint -> set of roles expected to get HTTP 200 (everyone else must get 403)

@@ -9,7 +9,7 @@ def test_public_theme_needs_no_login_and_defaults_to_green(api_client):
     response = api_client.get("/api/v1/public/theme/")
     assert response.status_code == 200
     data = response.data["data"]
-    assert data["preset"] == "MEDIANCE_GREEN"
+    assert data["preset"] == "MEDICINE_GREEN"
     assert data["primary_color"] == "#0F9D78"
 
 
@@ -77,5 +77,5 @@ def test_reset_restores_default(api_client, super_admin):
     response = api_client.delete("/api/v1/theme/")
     assert response.status_code == 200
     theme = SiteTheme.load()
-    assert theme.preset == "MEDIANCE_GREEN" and theme.primary_color == "#0F9D78"
+    assert theme.preset == "MEDICINE_GREEN" and theme.primary_color == "#0F9D78"
     assert AuditLog.objects.filter(action="THEME_RESET").exists()

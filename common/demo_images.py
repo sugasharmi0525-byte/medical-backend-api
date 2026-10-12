@@ -62,7 +62,7 @@ def product_image(title, subtitle, top, bottom, filename, label="NEURO LIFE", sh
         draw.rectangle([270, 330, 530, 530], fill=top)
         cx, band = 400, (330, 530)
     mid = (band[0] + band[1]) / 2
-    draw.text((cx, mid - 45), "MEDIANCE", fill="white", font=_font(34), anchor="mm")
+    draw.text((cx, mid - 45), "MEDICINE", fill="white", font=_font(34), anchor="mm")
     draw.text(
         (cx, mid + 5), label, fill="white", font=_font(30 if len(label) <= 12 else 24), anchor="mm"
     )
@@ -78,7 +78,7 @@ def report_pdf(title, patient_name, rows, filename):
     image = Image.new("RGB", (width, height), "white")
     draw = ImageDraw.Draw(image)
     draw.rectangle([0, 0, width, 170], fill=(15, 118, 110))
-    draw.text((80, 60), "MEDIANCE DIAGNOSTICS (DEMO)", fill="white", font=_font(44))
+    draw.text((80, 60), "MEDICINE DIAGNOSTICS (DEMO)", fill="white", font=_font(44))
     draw.text(
         (80, 120), "Sample report - fictional values for testing only", fill="white", font=_font(24)
     )

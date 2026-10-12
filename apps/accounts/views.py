@@ -10,7 +10,7 @@ from rest_framework_simplejwt.exceptions import TokenError
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.views import TokenObtainPairView
 
-from apps.accounts.auth_serializers import MedianceTokenObtainPairSerializer
+from apps.accounts.auth_serializers import MedicineTokenObtainPairSerializer
 from apps.accounts.models import Role, RoleCode, User
 from apps.accounts.serializers import (
     ChangePasswordSerializer,
@@ -32,7 +32,7 @@ from common.responses import success_response
 
 
 class LoginView(TokenObtainPairView):
-    serializer_class = MedianceTokenObtainPairSerializer
+    serializer_class = MedicineTokenObtainPairSerializer
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
@@ -132,7 +132,7 @@ class PatientRegisterView(APIView):
             user=user,
             link="/book",
             in_app={
-                "title": "Welcome to Mediance Neuro Life",
+                "title": "Welcome to Medicine Neuro Life",
                 "message": "Your patient account is ready. You can now book a consultation.",
             },
             category=NotificationCategory.ACCOUNT,
