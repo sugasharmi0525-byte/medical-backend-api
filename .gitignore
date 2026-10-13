@@ -13,8 +13,7 @@ __pycache__/
 venv/
 .pytest_cache/
 .ruff_cache/
-db.sqlite3
-media/
+db.sqlite3 
 staticfiles/
 
 # Node
