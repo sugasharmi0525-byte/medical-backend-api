@@ -79,3 +79,37 @@ def test_reset_restores_default(api_client, super_admin):
     theme = SiteTheme.load()
     assert theme.preset == "MEDICINE_GREEN" and theme.primary_color == "#0F9D78"
     assert AuditLog.objects.filter(action="THEME_RESET").exists()
+
+
+@pytest.mark.django_db
+def test_repair_branding_redraws_only_seeded_brand_images(settings, tmp_path):
+    from django.core.files.base import ContentFile
+    from django.core.files.storage import default_storage
+    from django.core.management import call_command
+
+    from apps.clinical.models import DocumentType, MedicalDocument
+    from apps.products.models import Product, ProductMedia
+
+    settings.MEDIA_ROOT = tmp_path
+    call_command("seed_demo")
+    shot = ProductMedia.objects.get(product__slug="medicine-stress-ease", sort_order=0)
+    report = MedicalDocument.objects.filter(document_type=DocumentType.LAB_REPORT).first()
+    upload = ProductMedia.objects.create(
+        product=Product.objects.get(slug="medicine-stress-ease"),
+        file=default_storage.save("products/client-photo.png", ContentFile(b"real")),
+        sort_order=5,
+    )
+    before = {"shot": shot.file.name, "report": report.file.name, "upload": upload.file.name}
+
+    call_command("repair_branding", images=True)
+
+    shot.refresh_from_db()
+    report.refresh_from_db()
+    upload.refresh_from_db()
+    # Redrawn under a new name (old one removed), so browsers can't show a cached copy.
+    for key, obj in (("shot", shot), ("report", report)):
+        assert obj.file.name != before[key]
+        assert default_storage.exists(obj.file.name)
+        assert not default_storage.exists(before[key])
+    assert upload.file.name == before["upload"]
+    assert default_storage.open(upload.file.name).read() == b"real"

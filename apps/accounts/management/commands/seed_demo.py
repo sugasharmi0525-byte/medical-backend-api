@@ -146,6 +146,29 @@ PATIENTS = [
 
 DEMO_NOTE = "Demo record — fictional data for local testing only."
 
+# Demo images of the main product: (title, subtitle, top colour, bottom colour).
+NEURO_LIFE_SHOTS = [
+    ("Medicine Neuro Life", "Front view (demo image)", (37, 99, 235), (30, 64, 175)),
+    ("Medicine Neuro Life", "Pack shot (demo image)", (13, 148, 136), (17, 94, 89)),
+    ("Medicine Neuro Life", "Lifestyle (demo image)", (124, 58, 237), (76, 29, 149)),
+]
+
+
+def catalogue_shots(spec):
+    """Demo images of an EXTRA_PRODUCTS item: (subtitle, top colour, bottom colour)."""
+    top, bottom = spec["colors"]
+    return [("Front view (demo image)", top, bottom), ("Pack shot (demo image)", bottom, top)]
+
+
+LAB_REPORT_TITLE = "Blood test report"
+LAB_REPORT_ROWS = [
+    ("Haemoglobin", "13.8 g/dL", "12 - 16"),
+    ("Vitamin B12", "410 pg/mL", "200 - 900"),
+    ("Vitamin D", "28 ng/mL", "30 - 100"),
+    ("Fasting glucose", "92 mg/dL", "70 - 100"),
+    ("TSH", "2.1 uIU/mL", "0.4 - 4.0"),
+]
+
 # Extra catalogue items. Names, prices and pack sizes are fictional placeholders; every
 # medical field (benefits, usage, precautions, composition) stays as the demo notice until
 # the client supplies approved wording.
@@ -342,12 +365,7 @@ class Command(BaseCommand):
             )
             if product.media.exists():
                 continue
-            top, bottom = spec["colors"]
-            shots = [
-                ("Front view (demo image)", top, bottom),
-                ("Pack shot (demo image)", bottom, top),
-            ]
-            for index, (subtitle, c1, c2) in enumerate(shots):
+            for index, (subtitle, c1, c2) in enumerate(catalogue_shots(spec)):
                 ProductMedia.objects.create(
                     product=product,
                     file=product_image(
@@ -478,12 +496,7 @@ class Command(BaseCommand):
     def _seed_product_media(self, product):
         if product.media.exists():
             return
-        shots = [
-            ("Medicine Neuro Life", "Front view (demo image)", (37, 99, 235), (30, 64, 175)),
-            ("Medicine Neuro Life", "Pack shot (demo image)", (13, 148, 136), (17, 94, 89)),
-            ("Medicine Neuro Life", "Lifestyle (demo image)", (124, 58, 237), (76, 29, 149)),
-        ]
-        for index, (title, subtitle, top, bottom) in enumerate(shots):
+        for index, (title, subtitle, top, bottom) in enumerate(NEURO_LIFE_SHOTS):
             ProductMedia.objects.create(
                 product=product,
                 file=product_image(title, subtitle, top, bottom, f"neuro-life-{index + 1}.png"),
@@ -678,13 +691,7 @@ class Command(BaseCommand):
                 )
 
     def _seed_documents(self):
-        rows = [
-            ("Haemoglobin", "13.8 g/dL", "12 - 16"),
-            ("Vitamin B12", "410 pg/mL", "200 - 900"),
-            ("Vitamin D", "28 ng/mL", "30 - 100"),
-            ("Fasting glucose", "92 mg/dL", "70 - 100"),
-            ("TSH", "2.1 uIU/mL", "0.4 - 4.0"),
-        ]
+        rows = LAB_REPORT_ROWS
         for profile in PatientProfile.objects.select_related("user", "assigned_doctor"):
             if profile.documents.exists():
                 continue
@@ -694,7 +701,7 @@ class Command(BaseCommand):
                 title="Blood test report (demo)",
                 document_type=DocumentType.LAB_REPORT,
                 file=report_pdf(
-                    "Blood test report", profile.user.full_name, rows, f"blood-report-{slug}.pdf"
+                    LAB_REPORT_TITLE, profile.user.full_name, rows, f"blood-report-{slug}.pdf"
                 ),
                 notes=DEMO_NOTE,
                 uploaded_by=profile.assigned_doctor,
